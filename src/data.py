@@ -56,3 +56,22 @@ def prepare_data_for_value_fuction(data, seq_len, parameters=DEFAULT_PARAMETERS)
         x_data.append(data.iloc[i - seq_len:i, :data.shape[1]][parameters])
         y_data.append(data.iloc[i]['Value function'])
     return np.array(x_data), np.array(y_data)
+
+
+def sigmoid(x):
+    return 1 / (1 + np.exp(-x))
+
+
+def state_creator(data, timestep, seq_len):
+    starting_id = timestep - seq_len + 1
+
+    if starting_id >= 0:
+        windowed_data = data[starting_id:timestep + 1]
+    else:
+        windowed_data = starting_id * [data[0]] + list(data[0:timestep + 1])
+
+    state = []
+    for i in range(seq_len - 1):
+        state.append(sigmoid(windowed_data[i + 1] - windowed_data[i]))
+
+    return np.array([state])

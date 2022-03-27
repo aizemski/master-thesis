@@ -26,5 +26,4 @@ class Lstm():
                                      validation_data=(x_test, y_test), verbose=self.verbose)
 
             # save(model,ticker,i,seq_len,epochs)
-
             i += 1
