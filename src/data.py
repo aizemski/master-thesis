@@ -40,6 +40,7 @@ def load_data(filename):
 
 
 def prepare_data_for_close(data, seq_len, parameters=DEFAULT_PARAMETERS):
+    data = np.log(data)
     x_data = []
     y_data = []
     for i in range(seq_len + 1, len(data)):

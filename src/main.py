@@ -7,6 +7,7 @@ import glob
 
 from src.data import load_all_downloaded_data_for_pair, prepare_data_for_close
 from src.dynamic import optimal_for_all_data
+from src.models.lstm_reggression import LSTM_reggression
 
 if __name__ == '__main__':
     i = 0
@@ -15,4 +16,6 @@ if __name__ == '__main__':
     #          months=list(range(1, 13)))
     frame = load_all_downloaded_data_for_pair(TICKERS[i], BASE)
     frame = frame[-300:]
-    frame['Cash'], frame['Asset'] = optimal_for_all_data(frame)
+    # frame['Cash'], frame['Asset'] = optimal_for_all_data(frame)
+    reg = LSTM_reggression()
+    reg.train(frame)
